@@ -7,7 +7,7 @@ from lib.dateutil.parser import parser as dateParser
 
 import uranime
 
-class Uranime(Provider){
+class Uranime(Provider)
     version = "0.1"
     identifier = "de.lad1337.uranime"
     _tag = 'uranime'
@@ -44,4 +44,4 @@ class Uranime(Provider){
         log("%s found %s games" % (self.name, self.progress.count))
 
         return rootElement
-}
+
