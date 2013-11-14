@@ -1,0 +1,22 @@
+{
+    "name": "XDM anime repo", 
+    "info_url": "https://github.com/groenlid/XDM-anime-plugin-repo", 
+    "plugins": {
+        "de.lad1337.anime": [
+            {
+                "major_version": 0, 
+                "minor_version": 1, 
+                "name": "Anime", 
+                "type": "Downloader", 
+                "format": "zip", 
+                "desc": "This will download the download link into a file. It can not check for the status of a download.", 
+                "xdm_version": [
+                    0, 
+                    5, 
+                    9
+                ], 
+                "download_url": "https://github.com/groenlid/XDM-anime-plugin-repo/archive/master.zip"
+            }
+        ] 
+    }
+}
