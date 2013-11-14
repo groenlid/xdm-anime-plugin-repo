@@ -17,6 +17,22 @@
                 ], 
                 "download_url": "https://github.com/groenlid/XDM-anime-plugin-repo/archive/master.zip"
             }
-        ] 
+        ],
+	"de.lad1337.urani.me": [
+            {
+                "major_version": 0, 
+                "minor_version": 1, 
+                "name": "Uranime", 
+                "type": "Provider", 
+                "format": "zip", 
+                "desc": "Anime info from http://urani.me.", 
+                "xdm_version": [
+                    0, 
+                    5, 
+                    9
+                ], 
+                "download_url": "https://github.com/groenlid/XDM-anime-plugin-repo/archive/master.zip"
+            }
+        ], 
     }
 }
