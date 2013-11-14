@@ -22,7 +22,7 @@ class Uranime(Provider):
         self.progress.reset()
         
         mt = MediaType.get(MediaType.identifier == 'de.lad1337.anime')
-        mtm = mt.manager
+        mtm = common.PM.getMediaTypeManager('de.lad1337.anime')[0]
         rootElement = mtm.getFakeRoot(term)
         payload = {}
         url = 'http://api.urani.me/search'
