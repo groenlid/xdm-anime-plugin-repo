@@ -31,7 +31,6 @@ class Episode(object):
     number = 0
     overview = ''
     screencap_image = ''
-    special = false
 
     _orderBy = 'number'
     _orderReverse = True
