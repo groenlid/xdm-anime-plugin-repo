@@ -7,9 +7,9 @@
                 "major_version": 0, 
                 "minor_version": 1, 
                 "name": "Anime", 
-                "type": "Downloader", 
+                "tyoe": "MediaTypeManager", 
                 "format": "zip", 
-                "desc": "This will download the download link into a file. It can not check for the status of a download.", 
+                "desc": "Anime", 
                 "xdm_version": [
                     0, 
                     5, 
