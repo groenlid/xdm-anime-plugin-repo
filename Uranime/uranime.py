@@ -18,7 +18,7 @@ class Uranime(Provider):
     config_meta = {'plugin_desc': 'Anime info from http://urani.me.'}
 
 
-    def searchForElement(self, term='')
+    def searchForElement(self, term=''):
         self.progress.reset()
         
         mt = MediaType.get(MediaType.identifier == 'de.lad1337.uranime')
