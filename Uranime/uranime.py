@@ -21,7 +21,7 @@ class Uranime(Provider):
     def searchForElement(self, term=''):
         self.progress.reset()
         
-        mt = MediaType.get(MediaType.identifier == 'de.lad1337.uranime')
+        mt = MediaType.get(MediaType.identifier == 'de.lad1337.anime')
         mtm = mt.manager
         rootElement = mtm.getFakeRoot(term)
         payload = {}
