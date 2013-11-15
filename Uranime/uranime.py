@@ -5,8 +5,6 @@ from lib import requests
 import re
 from lib.dateutil.parser import parser as dateParser
 
-import uranime
-
 class Uranime(Provider):
     version = "0.1"
     identifier = "de.lad1337.uranime"
@@ -30,18 +28,7 @@ class Uranime(Provider):
         r = requests.get(url, params=payload)
         
         log('uranime search url ' + r.url)
-        #root = ET.fromstring(r.text.encode('utf-8'))
-
-        #baseImgUrlTag = root.find('baseImgUrl')
-        #if baseImgUrlTag is not None:
-        #    base_url = baseImgUrlTag.text
-        #else:
-        #    base_url = "http://thegamesdb.net/banners/"
-
-        #for curGame in root.getiterator('Game'):
-        #    self._createGameFromTag(curGame, base_url, rootElement)
-
-        #log("%s found %s anime" % (self.name, self.progress.count))
+        log("%s found %s anime" % (self.name, self.progress.count))
 
         return rootElement
 
