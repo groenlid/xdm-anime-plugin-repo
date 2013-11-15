@@ -1,6 +1,5 @@
 from xdm.plugins import *
 import datetime
-import xml.etree.ElementTree as ET
 from lib import requests
 import re
 from lib.dateutil.parser import parser as dateParser
@@ -28,6 +27,7 @@ class Uranime(Provider):
         r = requests.get(url, params=payload)
         
         log('uranime search url ' + r.url)
+        log(r.text)
         log("%s found %s anime" % (self.name, self.progress.count))
 
         return rootElement
