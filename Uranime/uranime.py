@@ -29,8 +29,8 @@ class Uranime(Provider):
         payload['q'] = term
         r = requests.get(url, params=payload)
         
-        log('tgdb search url ' + r.url)
-        root = ET.fromstring(r.text.encode('utf-8'))
+        log('uranime search url ' + r.url)
+        #root = ET.fromstring(r.text.encode('utf-8'))
 
         #baseImgUrlTag = root.find('baseImgUrl')
         #if baseImgUrlTag is not None:
@@ -41,7 +41,7 @@ class Uranime(Provider):
         #for curGame in root.getiterator('Game'):
         #    self._createGameFromTag(curGame, base_url, rootElement)
 
-        log("%s found %s games" % (self.name, self.progress.count))
+        #log("%s found %s anime" % (self.name, self.progress.count))
 
         return rootElement
 
