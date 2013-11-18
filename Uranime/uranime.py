@@ -27,7 +27,7 @@ class Uranime(Provider):
         r = requests.get(url, params=payload)
         
         log('uranime search url ' + r.url)
-        log(r.text)
+        
         log("%s found %s anime" % (self.name, self.progress.count))
 
         return rootElement
