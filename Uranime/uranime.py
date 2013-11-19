@@ -28,8 +28,11 @@ class Uranime(Provider):
         r = requests.get(url, params=payload)
         
         log('uranime search url ' + r.url)
-        searchresult = json.loads(r.content)
         
+        searchresult = r.json() #json.loads(r.text)
+        
+        log("content from request: {}".format(r.text))
+
         # This is to support the old api
         for item in searchresult:
             log("found item: {}".format(item))
