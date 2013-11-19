@@ -32,7 +32,7 @@ class Uranime(Provider):
         
         # This is to support the old api
         for item in searchresult:
-            log(item)
+            log("found item: {}".format(item))
 
         log("%s found %s anime" % (self.name, self.progress.count))
 
