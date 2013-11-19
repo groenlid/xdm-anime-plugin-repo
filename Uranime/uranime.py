@@ -23,7 +23,7 @@ class Uranime(Provider):
         mtm = common.PM.getMediaTypeManager('de.lad1337.anime')[0]
         rootElement = mtm.getFakeRoot(term)
         payload = {}
-        url = 'http://api.urani.me/search'
+        url = 'http://groenlid.no-ip.org/api/search'
         payload['q'] = term
         r = requests.get(url, params=payload)
         
