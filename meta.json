@@ -2,7 +2,7 @@
     "name": "XDM anime repo", 
     "info_url": "https://github.com/groenlid/XDM-anime-plugin-repo", 
     "plugins": {
-        "de.lad1337.anime": [
+        "de.uranime.anime": [
             {
                 "major_version": 0, 
                 "minor_version": 1, 
@@ -18,7 +18,7 @@
                 "download_url": "https://github.com/groenlid/XDM-anime-plugin-repo/archive/master.zip"
             }
         ],
-	"de.lad1337.uranime": [
+	"de.uranime.uranime": [
             {
                 "major_version": 0, 
                 "minor_version": 1, 
