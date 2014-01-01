@@ -1,10 +1,13 @@
 
-var setListeners = function() {
-    $('.de-lad1337-anime').on('click', '.Show>.info img.poster, .Show>.info img.banner', function(){
+$(document).ready(function() {
+    $('.de-uranime-anime').on('click', function(){
+	console.log("hello");
+    });
+    $('.de-uranime-anime').on('click', '.Show>.info img.poster, .Show>.info img.banner', function(){
         var p = $(this).closest('.Show');
         p.toggleClass('active')
     });
-    $('.de-lad1337-anime').on('click', '.Season .progress', function(e){
+    $('.de-uranime-anime').on('click', '.Season .progress', function(e){
         var multi = e.shiftKey
         var s = $(this).closest('.Season');
         var p = $(this).closest('.Show');
@@ -26,7 +29,7 @@ var setListeners = function() {
         });
     });
 
-    $('.de-lad1337-anime').on('click', 'th .simple-status-select a', function(){
+    $('.de-uranime-anime').on('click', 'th .simple-status-select a', function(){
         var table = $(this).closest('table')
         var status_id = $(this).data('id')
         $('input[type="checkbox"]', table).each(function(k, v){
@@ -41,7 +44,7 @@ var setListeners = function() {
         });
     });
 
-    $('.de-lad1337-anime').on('click', 'th .icon-check', function(){
+    $('.de-uranime-anime').on('click', 'th .icon-check', function(){
         table = $(this).closest('table')
         $('input[type="checkbox"]', table).each(function(k, v){
             var t = $(this)
@@ -49,7 +52,7 @@ var setListeners = function() {
         });
     });
 
-    $('.de-lad1337-anime').on('dblclick', 'th .icon-check', function(){
+    $('.de-uranime-anime').on('dblclick', 'th .icon-check', function(){
         table = $(this).closest('table');
         var all = 0;
         var checked = 0;
@@ -64,7 +67,7 @@ var setListeners = function() {
         cbs.prop("checked", checked/all > 0.5)
     });
 
-    $('.de-lad1337-anime').on('mouseenter', '.Episode td.title img', function(){
+    $('.de-uranime-anime').on('mouseenter', '.Episode td.title img', function(){
     	var t = $(this).parent();
     	$(this).qtip('destroy', true);
     	$(this).qtip({ // Grab some elements to apply the tooltip to
@@ -80,7 +83,7 @@ var setListeners = function() {
     			}
     	    },
     	    style:{
-    	    	classes: 'qtip-bootstrap de-lad1337-anime episode-tooltip'
+    	    	classes: 'qtip-bootstrap de-uranime-anime episode-tooltip'
     	    },
     	    show: {
     	        solo: true,
@@ -94,10 +97,10 @@ var setListeners = function() {
     	})
     });    
     
-};
+});
 
 function de_lad1337_anime_init(){
-    init_progress_bar_resize($('.de-lad1337-anime'));
+    init_progress_bar_resize($('.de-uranime-anime'));
     setListeners();
 }
 

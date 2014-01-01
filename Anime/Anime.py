@@ -6,11 +6,16 @@ location = os.path.abspath(os.path.dirname(__file__))
 class Episode(object):
     number = 0
     title = ''
-    
+    special = False
+    overview = ''
+    screencap_image = ''
+
     _orderBy = 'number'
 
     def getTemplate(self):
-        return '<li class="bORw"><span class="songPosition bORw">{{this.number}}</span><span class="songTitle bORw">{{this.title}}</span><span class="length bORw">{{this.length}}</span></li>'
+        fp = os.path.join(location, "episode.ji2")
+        with open (fp, "r") as template:
+            return template.read()
 
 class Show(object):
     title = ''
@@ -28,7 +33,7 @@ class Show(object):
 	with open (fp, "r") as template:
 		return template.read()
 
-    def getSearcTemplate(self):
+    def getSearchTemplate(self):
 	fp = os.path.join(location, "show_search.ji2")
 	with open (fp, "r") as template:
 		return template.read()
@@ -36,7 +41,7 @@ class Show(object):
    
 
 class Anime(MediaTypeManager):
-    version = "0.1"
+    version = "0.3"
     single = True
     _config = {'enabled': True}
     config_meta = {'plugin_desc': 'Anime support'}
@@ -48,17 +53,14 @@ class Anime(MediaTypeManager):
     addConfig[Indexer] = [{'type':'category', 'default': None, 'prefix': 'Category for', 'sufix': 'Anime'}]
     addConfig[PostProcessor] = [{'type':'path', 'default': None, 'prefix': 'Final path for', 'sufix': 'Anime'}]
 
-    def makeReal(self, show):
+    def makeReal(self, show, status):
         show.parent = self.root
-        show.status = common.getStatusByID(self.c.default_new_status_select)
+        show.status = status
         show.save()
         common.Q.put(('image.download', {'id': show.id}))
-        #for season in list(show.children):
-        #    season.save()
-        #    common.Q.put(('image.download', {'id': season.id}))
-        #    for episode in list(season.children):
-        #        episode.save()
-        #        common.Q.put(('image.download', {'id': episode.id}))
+        for episode in list(show.children):
+            episode.save()
+            common.Q.put(('image.download', {'id': episode.id}))
         return True    
 
 

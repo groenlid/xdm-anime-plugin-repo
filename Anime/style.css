@@ -1,27 +1,27 @@
 
 
-.de-lad1337-anime .Show,
-.de-lad1337-anime .Show .info,
-.de-lad1337-anime .Show .info>img,
-.de-lad1337-anime .Show .info .progress,
-.de-lad1337-anime .seasons,
-.de-lad1337-anime .seasons img,
-.de-lad1337-anime .seasons .progress{
+.de-uranime-anime .Show,
+.de-uranime-anime .Show .info,
+.de-uranime-anime .Show .info>img,
+.de-uranime-anime .Show .info .progress,
+.de-uranime-anime .seasons,
+.de-uranime-anime .seasons img,
+.de-uranime-anime .seasons .progress{
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
 
-.de-lad1337-anime .Episode p.overview{
+.de-uranime-anime .Episode p.overview{
     display: none;
 }
 
-.de-lad1337-anime.episode-tooltip p.overview{
+.de-uranime-anime.episode-tooltip p.overview{
     display: block;
 }
 
-.de-lad1337-anime .Show h3{
+.de-uranime-anime .Show h3{
     margin-left: 37%;
     position: absolute;
     top: 50%;
@@ -32,19 +32,19 @@
     text-overflow: ellipsis;
 }
 
-.de-lad1337-anime .Show h4{
+.de-uranime-anime .Show h4{
     display: none;
 }
 
-.de-lad1337-anime .Show.active h3,
-.de-lad1337-anime .Show.active h4{
+.de-uranime-anime .Show.active h3,
+.de-uranime-anime .Show.active h4{
     color: #fff;
     text-shadow: -1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000;
 }
 
 
-.de-lad1337-anime .Show.active h3,
-.de-lad1337-anime .Show.active h4{
+.de-uranime-anime .Show.active h3,
+.de-uranime-anime .Show.active h4{
     display: inline;
     margin-left: 15px;
     position: absolute;
@@ -52,11 +52,11 @@
     width: calc(100% - 280px);
 }
 
-.de-lad1337-anime .Show.active h4{
+.de-uranime-anime .Show.active h4{
     top: 43px;
 }
 
-.de-lad1337-anime .Show .info{
+.de-uranime-anime .Show .info{
     padding: 0;
     position: relative;
     width: 100%;
@@ -66,24 +66,24 @@
     margin-top: 10px;
 }
 
-.de-lad1337-anime .Show:not(.active) .info{
+.de-uranime-anime .Show:not(.active) .info{
     background-image: none !important;
 }
 
-.de-lad1337-anime .Show.active .info{
+.de-uranime-anime .Show.active .info{
     padding: 10px;
     float: left;
     width: calc(80% - 170px);
 }
 
-.de-lad1337-anime .Show .info>img.poster{
+.de-uranime-anime .Show .info>img.poster{
     height: 0px;
 }
-.de-lad1337-anime .Show.active .info>img.poster{
+.de-uranime-anime .Show.active .info>img.poster{
     height: 300px;
     cursor: pointer;
 }
-.de-lad1337-anime .Show .info>img.banner{
+.de-uranime-anime .Show .info>img.banner{
     width: 36%;
     min-width: 260px;
     border: 0;
@@ -92,12 +92,12 @@
     border-radius: 4px 0 0 4px;
     cursor: pointer;
 }
-.de-lad1337-anime .Show.active .info>img.banner{
+.de-uranime-anime .Show.active .info>img.banner{
     width: 0;
     min-width: 0;
 }
 
-.de-lad1337-anime .Show .info .progress{
+.de-uranime-anime .Show .info .progress{
     width: 30%;
     position: absolute;
     right: 30px;
@@ -107,29 +107,29 @@
     opacity: 1;
 }
 
-.de-lad1337-anime .Show.active .info .progress{
+.de-uranime-anime .Show.active .info .progress{
     opacity: 0;
     display: none;
 }
 
-.de-lad1337-anime .Show .info>.buttons,
-.de-lad1337-anime .Show.active .info .progress span{
+.de-uranime-anime .Show .info>.buttons,
+.de-uranime-anime .Show.active .info .progress span{
     display: none;
 }
 
-.de-lad1337-anime .Show.active .info>.buttons{
+.de-uranime-anime .Show.active .info>.buttons{
     display: inline-block;
     float: right;
 }
-.de-lad1337-anime .Show.active .info>.buttons>div{
+.de-uranime-anime .Show.active .info>.buttons>div{
     margin-bottom: 10px;
 }
-.de-lad1337-anime .Show.active .info>.buttons>div>*:first-child{
+.de-uranime-anime .Show.active .info>.buttons>div>*:first-child{
     float: right;
     
 }
 
-.de-lad1337-anime .Show ul.infos{
+.de-uranime-anime .Show ul.infos{
     margin-bottom: 0;
     display: none;
     position: absolute;
@@ -137,26 +137,26 @@
     margin-left: 15px;
 }
 
-.de-lad1337-anime .Show.active ul.infos{
+.de-uranime-anime .Show.active ul.infos{
     display: inline;
 }
 
-.de-lad1337-anime .Show ul.infos li{
+.de-uranime-anime .Show ul.infos li{
     list-style: none;
 }
 
-.de-lad1337-anime .Show ul.infos label{
+.de-uranime-anime .Show ul.infos label{
     min-width: 66px;
     margin-bottom: 0;
     font-weight: bold;
     cursor: default;
 }
-.de-lad1337-anime .Show.active ul.infos label{
+.de-uranime-anime .Show.active ul.infos label{
     display: inline-block;
 }
 
 
-.de-lad1337-anime .seasons{
+.de-uranime-anime .seasons{
     float: right;
     position: relative;
     overflow: hidden;
@@ -165,19 +165,19 @@
     margin-top: 11px;
 }
 
-.de-lad1337-anime .Show.active .seasons{
+.de-uranime-anime .Show.active .seasons{
     display: block;
     width: 20%;
     height: auto;
     overflow: visible;
 }
 
-.de-lad1337-anime .seasons .Season{
+.de-uranime-anime .seasons .Season{
     /* if this is set the season image does move too
     position: relative;*/
 }
 
-.de-lad1337-anime .seasons .Season>img{
+.de-uranime-anime .seasons .Season>img{
     width: 100px;
     left: -150px;
     top: 0;
@@ -186,52 +186,52 @@
 }
 
 
-.de-lad1337-anime .seasons .Season .number{
+.de-uranime-anime .seasons .Season .number{
     margin-right: 5px;
     position: absolute;
     left: -21px;
     z-index: 10;
 }
-.de-lad1337-anime .seasons .Season.active:not(.ratio-0) .number{
+.de-uranime-anime .seasons .Season.active:not(.ratio-0) .number{
     color: #fff;
 }
 
-.de-lad1337-anime .seasons .progress{
+.de-uranime-anime .seasons .progress{
     margin-bottom: 6px;
     position: relative;
     z-index: 5;
     cursor: pointer;
 }
-.de-lad1337-anime .Season.active .progress{
+.de-uranime-anime .Season.active .progress{
     margin-left: -28px;
 }
 
-.de-lad1337-anime .seasons .Season.active>img{
+.de-uranime-anime .seasons .Season.active>img{
     opacity: 1;
 }
 
-.de-lad1337-anime .seasons .Season input[type="checkbox"]{
+.de-uranime-anime .seasons .Season input[type="checkbox"]{
     position: absolute;
     right: 3px;
     top: 0;
     z-index: 10;
     display: none;
 }
-.de-lad1337-anime .seasons .Season:hover input[type="checkbox"],
-.de-lad1337-anime .seasons .Season input[type="checkbox"]:checked{
+.de-uranime-anime .seasons .Season:hover input[type="checkbox"],
+.de-uranime-anime .seasons .Season input[type="checkbox"]:checked{
     display: inline;
 }
 
 
-.de-lad1337-anime .Episode tr.episode-number{
+.de-uranime-anime .Episode tr.episode-number{
     width: 100px;
 }
 
-.de-lad1337-anime .Episode td{
+.de-uranime-anime .Episode td{
     vertical-align: middle;
 }
 
-.de-lad1337-anime .Episode .title img{
+.de-uranime-anime .Episode .title img{
     height: 30px;
     margin-right: 10px;
     border: 1px solid grey;
@@ -239,16 +239,16 @@
 }
 
 
-.de-lad1337-anime .Episode td.action{
+.de-uranime-anime .Episode td.action{
     width: 145px;
 }
 
-.de-lad1337-anime .Episode td.action .action-delete,
-.de-lad1337-anime .Episode td.action .info-config{
+.de-uranime-anime .Episode td.action .action-delete,
+.de-uranime-anime .Episode td.action .info-config{
     display: none;
 }
 
-.de-lad1337-anime .Episode .btn-group>.btn:nth-child(2) {
+.de-uranime-anime .Episode .btn-group>.btn:nth-child(2) {
     margin-left: 0;
     -webkit-border-top-left-radius: 4px;
     -moz-border-radius-topleft: 4px;
@@ -259,16 +259,17 @@
 }
 
 
-.de-lad1337-anime .cur-season-container{
+.de-uranime-anime .cur-season-container{
     display: none;
 }
 
-.de-lad1337-anime .cur-season-container th .icon-check{
+.de-uranime-anime .cur-season-container th .icon-check{
     cursor: pointer;
 }
 
 
-.de-lad1337-anime .Show.active .cur-season-container{
+.de-uranime-anime .Show.active .cur-season-container{
     display: block;
 }
+
 

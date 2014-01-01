@@ -6,7 +6,7 @@ import re
 from lib.dateutil.parser import parser as dateParser
 
 class Uranime(Provider):
-    version = "0.2"
+    version = "0.3"
     identifier = "de.uranime.uranime"
     _tag = 'uranime'
     _additional_tags = ['anime']
@@ -15,6 +15,9 @@ class Uranime(Provider):
     _config = {'enabled': True}
     config_meta = {'plugin_desc': 'Anime info from http://urani.me.'}
     _resize_url = "http://urani.me/api/imageresize/"
+    _episode_image_url = "http://urani.me/attachments/episodes"
+    _search_url = "http://groenlid.no-ip.org/api/search"
+    _details_url = "http://groenlid.no-ip.org/api/animedetails"
 
     def searchForElement(self, term=''):
         self.progress.reset()
@@ -23,9 +26,8 @@ class Uranime(Provider):
         mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
         rootElement = mtm.getFakeRoot(term)
         payload = {}
-        url = 'http://groenlid.no-ip.org/api/search'
         payload['q'] = term
-        r = requests.get(url, params=payload)
+        r = requests.get(self._search_url, params=payload)
         
         log('uranime search url ' + r.url)
         
@@ -47,17 +49,38 @@ class Uranime(Provider):
 	mt = MediaType.get(MediaType.identifier == 'de.uranime.anime')
 	mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
 	rootElement = mtm.getFakeRoot("{}{}".format(self._tag, id))
-		
+	
+        _request_show = requests.get(self._details_url + '/' + str(id))
+        self._createAnime(rootElement, mt, _request_show.json())
+        
+        return rootElement	
 
     def _createAnime(self, rootElement, mediaType, item):
         showElement = Element()
         showElement.mediaType = mediaType
         showElement.parent = rootElement
         showElement.type = 'Show'
-        showElement.setField('title', item['title'], self._tag)
+        showElement.setField('title', item['title'].encode('utf-8'), self._tag)
         showElement.setField('id', item['id'], self._tag)
  	showElement.setField('poster_image', self._resize_url + item['image'], self._tag)
  	showElement.setField('fanart_image', self._resize_url + item['fanart'], self._tag)
-   
+        
         showElement.saveTemp()
+        if 'episodes' in item:
+                for _episode in item['episodes']:
+		        episode = Element()
+		        episode.mediaType = mediaType
+		        episode.parent = showElement
+		        episode.type = 'Episode'
+		        episode.setField('title', _episode['name'].encode('utf-8'), self.tag)
+		        episode.setField('number', _episode['number'], self.tag)
+                        episode.setField('overview', _episode['description'].encode('utf-8'), self.tag)
+                        episode.setField('id', _episode['id'], self.tag)
+                        
+                        if _episode['image']:
+                                episode.setField('screencap_image', self._episode_image_url + '/' + str(_episode['anime_id']) + '/' + _episode['image'], self.tag)
+                
+                        if _episode['special']:
+                                episode.setField('special', True)
+                        episode.saveTemp()
 
