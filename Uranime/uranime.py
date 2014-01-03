@@ -1,9 +1,5 @@
 from xdm.plugins import *
-import datetime
 from lib import requests
-import json
-import re
-from lib.dateutil.parser import parser as dateParser
 
 class Uranime(Provider):
     version = "0.3"
@@ -45,15 +41,29 @@ class Uranime(Provider):
         return rootElement
     
     def getElement(self, id, element=None):
-        log("GETELEMENT with id: {}".format(id))
-	mt = MediaType.get(MediaType.identifier == 'de.uranime.anime')
-	mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
-	rootElement = mtm.getFakeRoot("{}{}".format(self._tag, id))
+        
+        query_id = None
+        if element is not None:
+            query_id = element.getField('id', self._tag)
+        if id:
+            query_id = id
+        if query_id is None:
+            return False
+        
+        log("GETELEMENT with id: {}".format(query_id))
+        
+        mt = MediaType.get(MediaType.identifier == 'de.uranime.anime')
+        mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
+        rootElement = mtm.getFakeRoot("{}".format(query_id))
 	
-        _request_show = requests.get(self._details_url + '/' + str(id))
+        _request_show = requests.get(self._details_url + '/' + str(query_id))
         self._createAnime(rootElement, mt, _request_show.json())
         
-        return rootElement	
+        for ele in rootElement.decendants:
+            if int(ele.getField('id', self._tag)) == int(query_id):
+                return ele
+        
+        return False	
 
     def _createAnime(self, rootElement, mediaType, item):
         showElement = Element()
@@ -62,8 +72,8 @@ class Uranime(Provider):
         showElement.type = 'Show'
         showElement.setField('title', item['title'].encode('utf-8'), self._tag)
         showElement.setField('id', item['id'], self._tag)
- 	showElement.setField('poster_image', self._resize_url + item['image'], self._tag)
- 	showElement.setField('fanart_image', self._resize_url + item['fanart'], self._tag)
+        showElement.setField('poster_image', self._resize_url + item['image'], self._tag)
+        showElement.setField('fanart_image', self._resize_url + item['fanart'], self._tag)
         
         showElement.saveTemp()
         if 'episodes' in item:
