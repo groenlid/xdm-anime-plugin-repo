@@ -65,10 +65,15 @@ class Uranime(Provider):
         return False	
 
     def _createAnime(self, rootElement, mediaType, item):
-        showElement = Element()
-        showElement.mediaType = mediaType
-        showElement.parent = rootElement
-        showElement.type = 'Show'
+        try:
+            showElement = Element.getWhereField(mediaType, 'Show', {'id': item['id']}, self._tag, rootElement)
+            log("Found element")
+        except Element.DoesNotExist:
+            log("Creating new element")
+            showElement = Element()
+            showElement.mediaType = mediaType
+            showElement.parent = rootElement
+            showElement.type = 'Show'
         showElement.setField('title', item['title'].encode('utf-8'), self._tag)
         showElement.setField('id', item['id'], self._tag)
         showElement.setField('poster_image', self._resize_url + item['image'], self._tag)
@@ -76,20 +81,24 @@ class Uranime(Provider):
         
         showElement.saveTemp()
         if 'episodes' in item:
-                for _episode in item['episodes']:
-		        episode = Element()
-		        episode.mediaType = mediaType
-		        episode.parent = showElement
-		        episode.type = 'Episode'
-		        episode.setField('title', _episode['name'].encode('utf-8'), self.tag)
-		        episode.setField('number', _episode['number'], self.tag)
-                        episode.setField('overview', _episode['description'].encode('utf-8'), self.tag)
-                        episode.setField('id', _episode['id'], self.tag)
-                        
-                        if _episode['image']:
-                                episode.setField('screencap_image', self._episode_image_url + '/' + str(_episode['anime_id']) + '/' + _episode['image'], self.tag)
+            for _episode in item['episodes']:
+                try:
+                    episode = Element.getWhereField(mediaType, 'Episode', {'id': _episode['id']}, self._tag, rootElement)
+                except Element.DoesNotExist:
+                    episode = Element()
+                    episode.mediaType = mediaType
+                    episode.type = 'Episode'
+		        
+		episode.parent = showElement
+		episode.setField('title', _episode['name'].encode('utf-8'), self.tag)
+		episode.setField('number', _episode['number'], self.tag)
+		episode.setField('overview', _episode['description'].encode('utf-8'), self.tag)
+                episode.setField('id', _episode['id'], self.tag)
                 
-                        if _episode['special']:
-                                episode.setField('special', True)
-                        episode.saveTemp()
+                if _episode['image']:
+                        episode.setField('screencap_image', self._episode_image_url + '/' + str(_episode['anime_id']) + '/' + _episode['image'], self.tag)
+        
+                if _episode['special']:
+                        episode.setField('special', True)
+                episode.saveTemp()
 
