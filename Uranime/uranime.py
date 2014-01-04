@@ -30,7 +30,6 @@ class Uranime(Provider):
         searchresult = r.json()
         self.progress.total = len(searchresult)
 
-        # This is to support the old api
         for item in searchresult:
             self.progress.addItem()
             log("found item: {}".format(item))
@@ -54,7 +53,7 @@ class Uranime(Provider):
         
         mt = MediaType.get(MediaType.identifier == 'de.uranime.anime')
         mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
-        rootElement = mtm.getFakeRoot("{}".format(query_id))
+        rootElement = mtm.getFakeRoot(str(query_id))
 	
         _request_show = requests.get(self._details_url + '/' + str(query_id))
         self._createAnime(rootElement, mt, _request_show.json())
