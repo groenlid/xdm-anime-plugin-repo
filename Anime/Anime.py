@@ -1,4 +1,5 @@
 from xdm.plugins import *
+from xdm.tasks import updateElement
 import os
 
 location = os.path.abspath(os.path.dirname(__file__))
@@ -77,6 +78,7 @@ class Anime(MediaTypeManager):
         for episode in list(show.children):
             episode.save()
             common.Q.put(('image.download', {'id': episode.id}))
+        updateElement(show)
         return True
 
 

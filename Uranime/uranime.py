@@ -35,8 +35,8 @@ class Uranime(Provider):
         for item in searchresult:
             self.progress.addItem()
             log("found item: {}".format(item))
-            _request_show = requests.get("%s/%s" % (self._details_url, item["id"]))
-            self._createAnime(rootElement, mt, _request_show.json())
+            # _request_show = requests.get("%s/%s" % (self._details_url, item["id"]))
+            self._createAnime(rootElement, mt, item)
 
         log("%s found %s anime" % (self.name, self.progress.count))
 
