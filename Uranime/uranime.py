@@ -57,7 +57,8 @@ class Uranime(Provider):
         mt = MediaType.get(MediaType.identifier == 'de.uranime.anime')
         mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
         rootElement = mtm.getFakeRoot(str(query_id))
-        _request_show = requests.get(self._details_url + '/' + str(query_id))
+        _request_show = requests.get("%s/%s" % (self._details_url, query_id))
+        log("getting info from %s" % _request_show.url)
         self._createAnime(rootElement, mt, _request_show.json())
 
         for ele in rootElement.decendants:
@@ -71,10 +72,10 @@ class Uranime(Provider):
         showElement.mediaType = mediaType
         showElement.parent = rootElement
         showElement.type = 'Show'
-        showElement.setField('title', item['title'].encode('utf-8'), self._tag)
+        showElement.setField('title', item['title'].encode('utf-8'), self.tag)
         showElement.setField('id', item['id'], self._tag)
-        showElement.setField('poster_image', self._resize_url + item['image'], self._tag)
-        showElement.setField('fanart_image', self._resize_url + item['fanart'], self._tag)
+        showElement.setField('poster_image', self._resize_url + item['image'], self.tag)
+        showElement.setField('fanart_image', self._resize_url + item['fanart'], self.tag)
 
         showElement.saveTemp()
         if 'episodes' in item:
@@ -87,7 +88,7 @@ class Uranime(Provider):
                 episode.setField('number', _episode['number'], self.tag)
                 episode.setField('overview', _episode['description'], self.tag)
                 episode.setField('id', _episode['id'], self.tag)
-                episode.setField('id', parser.parse(_episode['aired']), self.tag)
+                episode.setField('airdate', parser.parse(_episode['aired']), self.tag)
 
                 if _episode['image']:
                         episode.setField('screencap_image', self._episode_image_url + '/' + str(_episode['anime_id']) + '/' + _episode['image'], self.tag)
