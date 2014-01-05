@@ -68,6 +68,7 @@ class Anime(MediaTypeManager):
 
     def makeReal(self, show, status):
         show.parent = self.root
+        log("{}{}{}".format(show, status, common.getStatusByID(self.c.default_new_status_select)))
         show.status = common.getStatusByID(self.c.default_new_status_select)
         show.save()
         common.Q.put(('image.download', {'id': show.id}))
