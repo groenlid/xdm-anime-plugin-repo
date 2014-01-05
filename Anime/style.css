@@ -73,7 +73,6 @@
 .de-uranime-anime .Show.active .info{
     padding: 10px;
     float: left;
-    width: calc(80% - 170px);
 }
 
 .de-uranime-anime .Show .info>img.poster{
@@ -146,7 +145,7 @@
 }
 
 .de-uranime-anime .Show ul.infos label{
-    min-width: 66px;
+    min-width: 88px;
     margin-bottom: 0;
     font-weight: bold;
     cursor: default;

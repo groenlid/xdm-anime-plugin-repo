@@ -43,7 +43,6 @@ class Uranime(Provider):
         return rootElement
 
     def getElement(self, id, element=None):
-
         query_id = None
         if element is not None:
             query_id = element.getField('id', self._tag)
@@ -76,6 +75,9 @@ class Uranime(Provider):
         showElement.setField('id', item['id'], self._tag)
         showElement.setField('poster_image', self._resize_url + item['image'], self.tag)
         showElement.setField('fanart_image', self._resize_url + item['fanart'], self.tag)
+        showElement.setField('description', item['desc'], self.tag)
+        showElement.setField('runtime', item['runtime'], self.tag)
+        showElement.setField('classification', item['classification'], self.tag)
 
         showElement.saveTemp()
         if 'episodes' in item:
