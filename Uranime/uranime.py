@@ -12,7 +12,7 @@ class Uranime(Provider):
     config_meta = {'plugin_desc': 'Anime info from http://urani.me.'}
     _resize_url = "http://urani.me/api/imageresize/"
     _episode_image_url = "http://urani.me/attachments/episodes"
-    _search_url = "http://groenlid.no-ip.org/api/search"
+    _search_url = "http://groenlid.no-ip.org/api/anime"
     _details_url = "http://groenlid.no-ip.org/api/animedetails"
 
     def searchForElement(self, term=''):
@@ -22,7 +22,7 @@ class Uranime(Provider):
         mtm = common.PM.getMediaTypeManager('de.uranime.anime')[0]
         rootElement = mtm.getFakeRoot(term)
         payload = {}
-        payload['q'] = term
+        payload['title'] = term
         r = requests.get(self._search_url, params=payload)
         
         log('uranime search url ' + r.url)
