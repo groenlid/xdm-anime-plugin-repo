@@ -15,7 +15,7 @@ class Episode(object):
     _orderBy = 'number'
 
     def getSearchTerms(self):
-    	return ['%s %02d' % (self.parent.search_title, self.number)]
+    	return ['%s %02d' % (self.parent.title, self.number)]
 
         """ The user should be able to choose which anime-synonym to search for
         return ['%s %02d' % (s, self.number) for s in loads(self.parent.synonyms)]
@@ -45,7 +45,6 @@ class Show(object):
     classification = ''
     id = ''
     synonyms = ''
-    search_title = ''
     _orderBy = 'title'
 
     def getName(self):

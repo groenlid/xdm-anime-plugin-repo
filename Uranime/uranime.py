@@ -79,7 +79,6 @@ class Uranime(Provider):
         showElement.setField('description', item['desc'], self.tag)
         showElement.setField('runtime', item['runtime'], self.tag)
         showElement.setField('classification', item['classification'], self.tag)
-        showElement.setField('search_title', item['title'].encode('utf-8'), self.tag)
         
         if 'synonyms' in item:
             synonyms = []
