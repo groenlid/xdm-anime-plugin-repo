@@ -8,6 +8,7 @@
             <li><label>Runtime</label><span>{{this.runtime}}</span></li>
             <li><label>Classification</label><span>{{this.classification}}</span></li>
             <li><label>Description</label><span>{{this.description}}</span></li>
+            <li><label>Synonyms</label><span>{{this.synonyms}}</span></li>
         </ul>
         <!--{{this.overview}}-->
         <div class="buttons">

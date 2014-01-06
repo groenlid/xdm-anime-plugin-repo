@@ -1,6 +1,7 @@
 from xdm.plugins import *
 import requests
 from dateutil import parser
+from json import dumps
 
 class Uranime(Provider):
     version = "0.3"
@@ -78,6 +79,13 @@ class Uranime(Provider):
         showElement.setField('description', item['desc'], self.tag)
         showElement.setField('runtime', item['runtime'], self.tag)
         showElement.setField('classification', item['classification'], self.tag)
+        showElement.setField('search_title', item['title'].encode('utf-8'), self.tag)
+        
+        if 'synonyms' in item:
+            synonyms = []
+            for synonym in item['synonyms']:
+                synonyms.append(synonym['title'])
+            showElement.setField('synonyms', dumps(synonyms), self.tag)
 
         showElement.saveTemp()
         if 'episodes' in item:

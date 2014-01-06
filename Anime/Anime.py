@@ -1,5 +1,6 @@
 from xdm.plugins import *
 from xdm.tasks import updateElement
+from json import loads
 import os
 
 location = os.path.abspath(os.path.dirname(__file__))
@@ -14,7 +15,12 @@ class Episode(object):
     _orderBy = 'number'
 
     def getSearchTerms(self):
-        return ['%s %02d' % (self.parent.title, self.number)]
+    	return ['%s %02d' % (self.parent.search_title, self.number)]
+
+        """ The user should be able to choose which anime-synonym to search for
+        return ['%s %02d' % (s, self.number) for s in loads(self.parent.synonyms)]
+        """
+
 
     def getTemplate(self):
         fp = os.path.join(location, "episode.ji2")
@@ -38,13 +44,15 @@ class Show(object):
     runtime = ''
     classification = ''
     id = ''
+    synonyms = ''
+    search_title = ''
     _orderBy = 'title'
 
     def getName(self):
         return self.title
 
-    # def getIdentifier(self):
-    #    return self.getField('id')
+    def getIdentifier(self):
+        return self.getField('id')
 
     def getTemplate(self):
         fp = os.path.join(location, "show.ji2")
@@ -60,6 +68,7 @@ class Anime(MediaTypeManager):
     version = "0.3"
     single = True
     _config = {'enabled': True}
+
     config_meta = {'plugin_desc': 'Anime support'}
     order = (Show, Episode)
     download = Episode
