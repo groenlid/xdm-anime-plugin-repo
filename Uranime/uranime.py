@@ -1,6 +1,6 @@
 from xdm.plugins import *
-from lib import requests
-from lib.dateutil import parser
+import requests
+from dateutil import parser
 
 class Uranime(Provider):
     version = "0.3"
