@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.de-uranime-anime').on('click', function(){
 	console.log("hello");
     });
-    $('.de-uranime-anime').on('click', '.Show>.info img.poster, .Show>.info img.banner', function(){
+    $('.de-uranime-anime').on('click', '.Show>.info', function(){
         var p = $(this).closest('.Show');
         p.toggleClass('active')
     });
