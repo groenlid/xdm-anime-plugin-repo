@@ -6,25 +6,13 @@ $(document).ready(function() {
     $('.de-uranime-anime').on('click', '.Show>.info img.poster, .Show>.info img.banner', function(){
         var p = $(this).closest('.Show');
         p.toggleClass('active')
-    });
-    $('.de-uranime-anime').on('click', '.Season .progress', function(e){
-        var multi = e.shiftKey
-        var s = $(this).closest('.Season');
-        var p = $(this).closest('.Show');
-        $(s).addClass('active')
-        if(!multi){
-            $('.label', p).removeClass('label-success')
-            $('.Season', p).removeClass('active')
-        }
-        $('.label', s).addClass('label-success')
-        $(s).addClass('active')
+        if(!p.hasClass("active"))
+            return
         data = {}
-        data['id'] = $(s).data('id')
+        data['id'] = $(p).data('id')
         jQuery.get( webRoot+'/getChildrensPaint', data, function(res){
-            if(!multi){
-                $('.cur-season-container tbody', p).html(res)
-            }else
-                $('.cur-season-container tbody', p).append(res)
+            $('.episodes-container tbody', p).html(res);
+            console.log(p)
             initDownloadbars();
         });
     });

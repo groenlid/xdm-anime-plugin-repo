@@ -1,11 +1,11 @@
 <tr class="Episode {{statusCssClass}}" data-id="{{this.id}}">
-    <td class="episode-number">{{this.number}}</td>
-    <td class="title">
+    <td class="episode-number black-outline">{{this.number}}</td>
+    <td class="title black-outline">
         <img src="{{this.screencap_image}}" class="img-rounded" style="margin-right:10px;"/>
         <span>{{this.title}}</span>
         <p class="overview">{{this.overview}}</p>
     </td>
-    <td title="{{this.airdate}}">{{released}}</td>
+    <td title="{{this.airdate}}" class="black-outline">{{released}}</td>
     <td>
         {{statusSelect}}
         <div class="progressbar-container">
