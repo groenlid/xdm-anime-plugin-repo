@@ -64,7 +64,7 @@ class Show(object):
             return template.read()
 
 class Anime(MediaTypeManager):
-    version = "0.3"
+    version = "0.5"
     single = True
     _config = {'enabled': True}
 
