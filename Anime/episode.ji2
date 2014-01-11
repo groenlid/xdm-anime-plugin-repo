@@ -1,5 +1,12 @@
 <tr class="Episode {{statusCssClass}}" data-id="{{this.id}}">
-    <td class="episode-number black-outline">{{this.number}}</td>
+    <td class="episode-number black-outline">
+        <span title="">{{this.number}}</span>
+        {%if this.season_number and this.season_episode%}
+        <span class="sxxexx">
+            s{{"%02de%02d"|format(this.season_number, this.season_episode)}}
+        </span>
+        {%endif%}
+    </td>
     <td class="title black-outline">
         <img src="{{this.screencap_image}}" class="img-rounded" style="margin-right:10px;"/>
         <span>{{this.title}}</span>

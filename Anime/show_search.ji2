@@ -1,6 +1,7 @@
 <div class="Show active {{statusCssClass}}" data-id="{{this.id}}">
     <div class="info">
-        <img src="{{this.poster_image}}" class="poster box-shadow"/><img src="{{this.banner_image}}" class="banner"/>
+        <img src="{{this.poster_image}}" class="poster box-shadow"/>
+        
         <h2>{{this.title}}</h2>
         <h2>{{this.year}}</h2>
         <!--{{this.overview}}-->

@@ -15,17 +15,17 @@
     position: relative;
 }
 
+.de-uranime-anime .Show.status-temp.active,
 .de-uranime-anime .Show{
     display: inline-block;
     position: relative;
-    padding: 20px 50px 20px 0;
+    padding: 10px 40px 0 0;
     width: 136px;
     vertical-align: top;
 }
 
 .de-uranime-anime .Show.active{
     width: 100%;
-    left: 0;
     padding-right:0;
 }
 
@@ -40,8 +40,24 @@
     text-align: center;
 }
 
-.de-uranime-anime .Show img.poster{
+.de-uranime-anime .Show .poster{
     height: 200px;
+    position: relative;
+}
+
+.de-uranime-anime .Show>.info .progress{
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 136px;
+    border-radius: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+.de-uranime-anime .Show.active>.info .progress,
+.de-uranime-anime .poster:hover .progress{
+    opacity: 1;
 }
 
 .de-uranime-anime .episodes-container{
@@ -56,15 +72,6 @@
 
 .de-uranime-anime .Show.active .episodes-container{
     display: block;
-    background-size: cover;
-}
-
-.de-uranime-anime .seasons .Season input[type="checkbox"]{
-    position: absolute;
-    right: 3px;
-    top: 0;
-    z-index: 10;
-    display: none;
 }
 
 .de-uranime-anime .Episode tr.episode-number{
@@ -117,18 +124,38 @@
     display: block;
 }
 
-.de-uranime-anime .Show>.buttons,
-.de-uranime-anime .Show.active .info .progress span{
+.de-uranime-anime .Show>.info .buttons{
     display: none;
 }
 
-.de-uranime-anime .Show.active>.buttons{
+.de-uranime-anime .Show.active>.info .buttons{
     display: inline-block;
-    position: absolute;
     left: 0;
     top: 280px;
 }
 
+.de-uranime-anime .episodes-container table{
+    min-height: 200px;
+    background-size: cover;
+}
+
+.de-uranime-anime .episodes-container table.loading{
+    background-size: 40px 40px;
+}
+
 .de-uranime-anime .episodes-container .table td{
     border-top: none;
+}
+
+.de-uranime-anime div.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+
+
+.de-uranime-anime .Episode .sxxexx{
+    visibility: hidden;
+}
+.de-uranime-anime .Episode:hover .sxxexx{
+    visibility: visible;
 }

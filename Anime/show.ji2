@@ -1,20 +1,61 @@
+
+{%set loading_count = this.manager._episode_count(this, (common.DOWNLOADING, common.SNATCHED))%}
+{%set wanted_count = this.manager._episode_count(this, (common.WANTED,))%}
+{%set done_count = this.manager._episode_count(this, (common.DOWNLOADED, common.COMPLETED))%}
+{%set all_count = this.manager._episode_count(this)%}
+{%if all_count%}
+    {%set done_ratio = (( (done_count) / all_count ) * 100)|int%}
+    {%set loading_ratio = (( loading_count / all_count ) * 100)|int%}
+    {%set wanted_ratio = (( wanted_count / all_count ) * 100)|int%}
+{%else%}
+    {%set done_ratio = 0%}
+    {%set loading_ratio = 0%}
+    {%set wanted_ratio = 0%}
+{%endif%}
+{%set total = done_ratio + loading_ratio + wanted_ratio%}
+{%if total == 99 %}
+{%set done_ratio = done_ratio + 1%}
+{%elif total > 100%}
+{%set done_ratio = done_ratio - (total - 100)%}
+{%endif%}
+
+
 <div class="Show" data-id="{{this.id}}">
     <div class="info">
-	    <img src="{{this.poster_image}}" class="poster box-shadow"/>
-	    <h2>{{this.title}}</h2>
+        <div class="poster box-shadow" style="background-image: url({{this.poster_image}}); background-size: cover; background-position: center top;">
+	       <!--<img src="{{this.poster_image}}" class="box-shadow"/>-->
+	        <div class="progress {%if ratio == 100%}progress-success{%endif%}">
+	            <span class="progressbar-back-text">{{done_count}} / {{all_count}}</span>
+	            <span class="progressbar-front-text">{{done_count}} / {{all_count}}</span>
+	            <div class="bar" style="width: {{done_ratio}}%;" title="collected"></div>
+	            <div class="bar bar-warning" style="width: {{loading_ratio}}%;" title="snatched"></div>
+	            <div class="bar bar-danger" style="width: {{wanted_ratio}}%;" title="wanted"></div>
+	        </div>
+	    </div>
+	    <h2 class="{%if this.synonyms%}has-synonyms{%endif%}">{{this.title}}</h2>
+	    <div class="buttons details">
+	        <div>
+	            {{actionButtons}}
+	            <div class="clearfix"></div>
+	        </div>
+	        <div>
+	            <a href="javascript:void(0)" class="info-config btn btn-mini"  onclick="showConfigs(this, {{this.id}});return false;">Config</a>
+	            <div class="clearfix"></div>
+	        </div>
+	    </div>
+	    <p class="synonyms" style="display:none;">
+	       {%if this.synonyms%}
+	       {{this.synonyms|json_loads|join(", ")}}
+	       {%endif%}
+	    </p>
     </div>
-    <div class="buttons">
-        <div>
-            {{actionButtons}}
-            <div class="clearfix"></div>
-        </div>
-        <div>
-            <a href="javascript:void(0)" class="info-config btn btn-mini"  onclick="showConfigs(this, {{this.id}});return false;">Config</a>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="episodes-container" style="background-image: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%), url({{this.fanart_image}});">
-        <table class="table table-condensed">
+    <div class="episodes-container">
+        <style type="text/css">
+        .de-uranime-anime .id-{{this.id}}.done{
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url({{this.fanart_image}});
+        }
+        </style>
+        <table class="table table-hover table-condensed box-shadow-inset round-corners id-{{this.id}}" >
             <thead>
                 <tr>
                     <th class="black-outline">Episode</th>
