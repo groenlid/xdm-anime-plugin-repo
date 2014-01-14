@@ -22,7 +22,7 @@ $(document).ready(function() {
                 "bDestroy": true,
                 "sDom": "<'row'<'span8'l><'span8'f>r>t<'pull-right'p>",
                 "bLengthChange": false,
-                "iDisplayLength": 15,
+                "iDisplayLength": uranime_page_size,
                 "bFilter": false,
                 "bSort": false,
                 "bInfo": false,
@@ -51,6 +51,18 @@ $(document).ready(function() {
         });
     });
 
+
+    $('.de-uranime-anime').on('click', '.switch', function(){
+        var show = $(this).closest('.Show');
+        var container = $(".episodes-container", show).toggleClass("flipped");
+        console.log($(this));
+        if(container.hasClass("flipped")){
+            $(this).text("Episodes");
+        }else{
+            $(this).text("Info");
+        }
+    });
+    
     $('.de-uranime-anime').on('click', 'th .icon-check', function(){
         table = $(this).closest('table')
         $('input[type="checkbox"]', table).each(function(k, v){
@@ -103,33 +115,7 @@ $(document).ready(function() {
                 at: 'top center', // at the bottom right of...
             }
         })
-    });    
-    $('.de-uranime-anime').on('mouseenter', '.Show h2.has-synonyms', function(){
-        var t = $(this).parent();
-        $(this).qtip('destroy', true);
-        $(this).qtip({ // Grab some elements to apply the tooltip to
-            content: {
-                text: function(){
-                    overview = $('.synonyms', t).clone()
-                    return overview;
-                },
-                title: "Synonyms"
-            },
-            style:{
-                classes: 'qtip-bootstrap de-uranime-anime episode-tooltip'
-            },
-            show: {
-                solo: true,
-                ready: true,
-                event: 'click'
-            },
-            position: {
-                my: 'bottom left',  // Position my top left...
-                at: 'top center', // at the bottom right of...
-            }
-        })
-    });    
-    
+    });
 });
 
 function de_uranime_anime_init(){

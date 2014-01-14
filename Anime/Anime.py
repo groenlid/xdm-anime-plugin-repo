@@ -66,7 +66,8 @@ class Show(object):
 class Anime(MediaTypeManager):
     version = "0.4"
     single = True
-    _config = {'enabled': True}
+    _config = {'enabled': True,
+               'page_size': 15}
 
     config_meta = {'plugin_desc': 'Anime support'}
     order = (Show, Episode)
@@ -93,9 +94,11 @@ class Anime(MediaTypeManager):
     def headInject(self):
         return """
         <link rel="stylesheet" href="%(myUrl)s/style.css">
+        <script>var uranime_page_size = %(page_size)s;</script>
         <script src="%(myUrl)s/jquery.dataTables.min.js"></script>
         <script src="%(myUrl)s/script.js"></script>
-        """ % {'myUrl': self.myUrl()}
+        """ % {'myUrl': self.myUrl(),
+               'page_size': self.c.page_size}
 
     def _episode_count(self, anime, statuses=False):
         if statuses:

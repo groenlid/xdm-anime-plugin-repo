@@ -134,6 +134,15 @@
     top: 280px;
 }
 
+
+.de-uranime-anime .Show.active>.info .buttons ul.external{
+    margin:10px 0 0 0;
+}
+
+.de-uranime-anime .Show.active>.info .buttons ul.external li{
+    list-style: none;
+}
+
 .de-uranime-anime .episodes-container table{
     min-height: 200px;
     background-size: cover;
@@ -158,4 +167,50 @@
 }
 .de-uranime-anime .Episode:hover .sxxexx{
     visibility: visible;
+}
+.de-uranime-anime .buttons .btn.switch{
+    
+}
+
+/* entire container, keeps perspective */
+.de-uranime-anime .episodes-container {
+    -webkit-perspective: 1200;
+    perspective: 1200;
+}
+/* flip the pane when hovered */
+.de-uranime-anime .episodes-container.flipped .flipper {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+
+/* flip speed goes here */
+.de-uranime-anime .flipper {
+    transition: 0.6s;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+}
+
+/* hide back of pane during swap */
+.de-uranime-anime .episodes-container .front,
+.de-uranime-anime .episodes-container .front *,
+.de-uranime-anime .episodes-container .details{
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+}
+
+/* front pane, placed above back */
+.de-uranime-anime .flipper .front {
+    z-index: 2;
+}
+
+/* back, initially hidden pane */
+.de-uranime-anime .flipper .details {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    top: 0;
+    position: absolute;
 }

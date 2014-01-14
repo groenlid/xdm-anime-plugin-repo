@@ -40,34 +40,69 @@
 	        </div>
 	        <div>
 	            <a href="javascript:void(0)" class="info-config btn btn-mini"  onclick="showConfigs(this, {{this.id}});return false;">Config</a>
+	            <button class="btn btn-mini pull-right switch">Info</button>
 	            <div class="clearfix"></div>
 	        </div>
+	        <ul class="external">
+	           {%if this.getField("id", "mal")%}
+               <li><a href="{{"http://myanimelist.net/anime/%s/"|format(this.getField("id", "mal"))|derefMe}}"><i class="icon-external-link"></i> MyAimeList</a></li>
+               {%endif%}
+               {%if this.getField("id", "anidb")%}
+               <li><a href="{{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=%s"|format(this.getField("id", "anidb"))|derefMe}}"><i class="icon-external-link"></i> AniDB</a></li>
+               {%endif%}
+               {%if this.getField("id", "uranime")%}
+               <li><a href="{{"http://urani.me/anime/view/%s/"|format(this.getField("id", "uranime"))|derefMe}}"><i class="icon-external-link"></i> Uranime</a></li>
+               {%endif%}
+               {%if this.getField("id", "tvdb")%}
+               <li><a href="{{"http://thetvdb.com/?tab=series&id=%s"|format(this.getField("id", "tvdb"))|derefMe}}"><i class="icon-external-link"></i> TVDB</a></li>
+	           {%endif%}
+	        </ul>
 	    </div>
-	    <p class="synonyms" style="display:none;">
+	    <div class="synonyms" style="display:none;">
+	       <h3>Overview</h3>
+	       <p>{{this.overview}}</p>
+           <h3>Synonyms</h3>
 	       {%if this.synonyms%}
 	       {{this.synonyms|json_loads|join(", ")}}
 	       {%endif%}
-	    </p>
+	       
+	    </div>
     </div>
     <div class="episodes-container">
-        <style type="text/css">
-        .de-uranime-anime .id-{{this.id}}.done{
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url({{this.fanart_image}});
-        }
-        </style>
-        <table class="table table-hover table-condensed box-shadow-inset round-corners id-{{this.id}}" >
-            <thead>
-                <tr>
-                    <th class="black-outline">Episode</th>
-                    <th class="black-outline">Title</th>
-                    <th class="black-outline">Airdate</th>
-                    <th class="black-outline">Status</th>
-                    <th><span class="black-outline">Action</span> <span class="pull-right drop-left">{{simpleStatusSelect}}</span></th>
-                    <th><i class="icon-check black-outline" title="click: toggle - double click: fill most"></i></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="flipper">
+	        <style type="text/css">
+	        .de-uranime-anime .id-{{this.id}}.done{
+	            background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url({{this.fanart_image}});
+	        }
+	        </style>
+	        <div class="front">
+		        <table class="table table-hover table-condensed box-shadow-inset round-corners id-{{this.id}}" >
+		            <thead>
+		                <tr>
+		                    <th class="black-outline">Episode</th>
+		                    <th class="black-outline">Title</th>
+		                    <th class="black-outline">Airdate</th>
+		                    <th class="black-outline">Status</th>
+		                    <th><span class="black-outline">Action</span> <span class="pull-right drop-left">{{simpleStatusSelect}}</span></th>
+		                    <th><i class="icon-check black-outline" title="click: toggle - double click: fill most"></i></th>
+		                </tr>
+		            </thead>
+		            <tbody></tbody>
+		        </table>
+	        </div>
+	        <div class="details well">
+	           <h3>Overview</h3>
+	           <p>{{this.overview}}</p>
+	           <h3>Synonyms</h3>
+	           {%if this.synonyms%}
+	           {{this.synonyms|json_loads|join(", ")}}
+	           {%endif%}
+	           
+	        </div>
+        </div>
+        
+        
+      
     </div>
     <div class="clear-fix"></div>
 </div>
