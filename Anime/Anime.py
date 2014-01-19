@@ -39,8 +39,8 @@ class Episode(object):
 class Show(object):
     title = ''
     description = ''
-    poster_image = ''
-    fanart_image = ''
+    poster_image = 1
+    fanart_image = 2
     runtime = ''
     classification = ''
     id = ''
