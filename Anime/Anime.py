@@ -13,14 +13,14 @@ class Episode(object):
     screencap_image = ''
 
     _orderBy = 'number'
+    _orderReverse = True
 
     def getSearchTerms(self):
-    	return ['%s %02d' % (self.parent.title, self.number)]
+        return ['%s %02d' % (self.parent.title, self.number)]
 
         """ The user should be able to choose which anime-synonym to search for
         return ['%s %02d' % (s, self.number) for s in loads(self.parent.synonyms)]
         """
-
 
     def getTemplate(self):
         fp = os.path.join(location, "episode.ji2")
@@ -33,14 +33,14 @@ class Episode(object):
     def getReleaseDate(self):
         return self.airdate
 
-    def getIdentifier(self):
+    def getIdentifier(self, tag=None):
         return self.number
 
 class Show(object):
     title = ''
     description = ''
-    poster_image = ''
-    fanart_image = ''
+    poster_image = 1
+    fanart_image = 2
     runtime = ''
     classification = ''
     id = ''
@@ -50,8 +50,8 @@ class Show(object):
     def getName(self):
         return self.title
 
-    def getIdentifier(self):
-        return self.getField('id')
+    def getIdentifier(self, tag=None):
+        return self.getField('id', tag)
 
     def getTemplate(self):
         fp = os.path.join(location, "show.ji2")
@@ -64,9 +64,10 @@ class Show(object):
             return template.read()
 
 class Anime(MediaTypeManager):
-    version = "0.3"
+    version = "0.4"
     single = True
-    _config = {'enabled': True}
+    _config = {'enabled': True,
+               'page_size': 15}
 
     config_meta = {'plugin_desc': 'Anime support'}
     order = (Show, Episode)
@@ -91,4 +92,19 @@ class Anime(MediaTypeManager):
 
 
     def headInject(self):
-        return self._defaultHeadInject()
+        return """
+        <link rel="stylesheet" href="%(myUrl)s/style.css">
+        <script>var uranime_page_size = %(page_size)s;</script>
+        <script src="%(myUrl)s/jquery.dataTables.min.js"></script>
+        <script src="%(myUrl)s/script.js"></script>
+        """ % {'myUrl': self.myUrl(),
+               'page_size': self.c.page_size}
+
+    def _episode_count(self, anime, statuses=False):
+        if statuses:
+            return Element.select().where(Element.type == 'Episode',
+                                          Element.parent == anime,
+                                          Element.status << statuses).count()
+        else:
+            return Element.select().where(Element.type == 'Episode',
+                                          Element.parent == anime).count()

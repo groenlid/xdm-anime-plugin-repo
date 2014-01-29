@@ -1,41 +1,108 @@
+
+{%set loading_count = this.manager._episode_count(this, (common.DOWNLOADING, common.SNATCHED))%}
+{%set wanted_count = this.manager._episode_count(this, (common.WANTED,))%}
+{%set done_count = this.manager._episode_count(this, (common.DOWNLOADED, common.COMPLETED))%}
+{%set all_count = this.manager._episode_count(this)%}
+{%if all_count%}
+    {%set done_ratio = (( (done_count) / all_count ) * 100)|int%}
+    {%set loading_ratio = (( loading_count / all_count ) * 100)|int%}
+    {%set wanted_ratio = (( wanted_count / all_count ) * 100)|int%}
+{%else%}
+    {%set done_ratio = 0%}
+    {%set loading_ratio = 0%}
+    {%set wanted_ratio = 0%}
+{%endif%}
+{%set total = done_ratio + loading_ratio + wanted_ratio%}
+{%if total == 99 %}
+{%set done_ratio = done_ratio + 1%}
+{%elif total > 100%}
+{%set done_ratio = done_ratio - (total - 100)%}
+{%endif%}
+
+
 <div class="Show" data-id="{{this.id}}">
-    <div class="info well" style="background-image: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%), url({{this.fanart_image}});">
-        <img src="{{this.fanart_image}}" class="banner"/>
-        <img src="{{this.poster_image}}" class="poster box-shadow"/>
-        <h3>{{this.title}}</h3>
-        <h4>{{this.year}}</h4>
-        <ul class="infos black-outline">
-            <li><label>Runtime</label><span>{{this.runtime}}</span></li>
-            <li><label>Classification</label><span>{{this.classification}}</span></li>
-            <li><label>Description</label><span>{{this.description}}</span></li>
-            <li><label>Synonyms</label><span>{{this.synonyms}}</span></li>
-        </ul>
-        <!--{{this.overview}}-->
-        <div class="buttons">
-            <div>
-                {{actionButtonsVertical}}
-                <div class="clearfix"></div>
-            </div>
-            <div>
-                <a href="javascript:void(0)" class="info-config btn btn-mini"  onclick="showConfigs(this, {{this.id}});return false;">Config</a>
-                <div class="clearfix"></div>
-            </div>
+    <div class="info">
+        <div class="poster box-shadow" style="background-image: url({{this.poster_image}}); background-size: cover; background-position: center top;">
+	       <!--<img src="{{this.poster_image}}" class="box-shadow"/>-->
+	        <div class="progress {%if ratio == 100%}progress-success{%endif%}">
+	            <span class="progressbar-back-text">{{done_count}} / {{all_count}}</span>
+	            <span class="progressbar-front-text">{{done_count}} / {{all_count}}</span>
+	            <div class="bar" style="width: {{done_ratio}}%;" title="collected"></div>
+	            <div class="bar bar-warning" style="width: {{loading_ratio}}%;" title="snatched"></div>
+	            <div class="bar bar-danger" style="width: {{wanted_ratio}}%;" title="wanted"></div>
+	        </div>
+	    </div>
+	    <h2 class="{%if this.synonyms%}has-synonyms{%endif%}">{{this.title}}</h2>
+	    <div class="buttons details">
+	        <div>
+	            {{actionButtons}}
+	            <div class="clearfix"></div>
+	        </div>
+	        <div>
+	            <a href="javascript:void(0)" class="info-config btn btn-mini"  onclick="showConfigs(this, {{this.id}});return false;">Config</a>
+	            <button class="btn btn-mini pull-right switch">Info</button>
+	            <div class="clearfix"></div>
+	        </div>
+	        <ul class="external">
+	           {%if this.getField("id", "mal")%}
+               <li><a href="{{"http://myanimelist.net/anime/%s/"|format(this.getField("id", "mal"))|derefMe}}"><i class="icon-external-link"></i> MyAimeList</a></li>
+               {%endif%}
+               {%if this.getField("id", "anidb")%}
+               <li><a href="{{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=%s"|format(this.getField("id", "anidb"))|derefMe}}"><i class="icon-external-link"></i> AniDB</a></li>
+               {%endif%}
+               {%if this.getField("id", "uranime")%}
+               <li><a href="{{"http://urani.me/anime/view/%s/"|format(this.getField("id", "uranime"))|derefMe}}"><i class="icon-external-link"></i> Uranime</a></li>
+               {%endif%}
+               {%if this.getField("id", "tvdb")%}
+               <li><a href="{{"http://thetvdb.com/?tab=series&id=%s"|format(this.getField("id", "tvdb"))|derefMe}}"><i class="icon-external-link"></i> TVDB</a></li>
+	           {%endif%}
+	        </ul>
+	    </div>
+	    <div class="synonyms" style="display:none;">
+	       <h3>Overview</h3>
+	       <p>{{this.overview}}</p>
+           <h3>Synonyms</h3>
+	       {%if this.synonyms%}
+	       {{this.synonyms|json_loads|join(", ")}}
+	       {%endif%}
+	       
+	    </div>
+    </div>
+    <div class="episodes-container">
+        <div class="flipper">
+	        <style type="text/css">
+	        .de-uranime-anime .id-{{this.id}}.done{
+	            background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url({{this.fanart_image}});
+	        }
+	        </style>
+	        <div class="front">
+		        <table class="table table-hover table-condensed box-shadow-inset round-corners id-{{this.id}}" >
+		            <thead>
+		                <tr>
+		                    <th class="black-outline">Episode</th>
+		                    <th class="black-outline">Title</th>
+		                    <th class="black-outline">Airdate</th>
+		                    <th class="black-outline">Status</th>
+		                    <th><span class="black-outline">Action</span> <span class="pull-right drop-left">{{simpleStatusSelect}}</span></th>
+		                    <th><i class="icon-check black-outline" title="click: toggle - double click: fill most"></i></th>
+		                </tr>
+		            </thead>
+		            <tbody></tbody>
+		        </table>
+	        </div>
+	        <div class="details well">
+	           <h3>Overview</h3>
+	           <p>{{this.overview}}</p>
+	           <h3>Synonyms</h3>
+	           {%if this.synonyms%}
+	           {{this.synonyms|json_loads|join(", ")}}
+	           {%endif%}
+	           
+	        </div>
         </div>
-        <div class="clearfix"></div>
+        
+        
+      
     </div>
-    <div class="cur-season-container" style="###background: url({{this.fanart_image}});">
-        <table class="table table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th>Episode</th>
-                    <th>Title</th>
-                    <th>Airdate</th>
-                    <th>Status</th>
-                    <th>Action <span class="pull-right drop-left">{{simpleStatusSelect}}</span></th>
-                    <th><i class="icon-check" title="click: toggle - double click: fill most"></i></th>
-                </tr>
-            </thead>
-            <tbody>{{children}}</tbody>
-        </table>
-    </div>
+    <div class="clear-fix"></div>
 </div>

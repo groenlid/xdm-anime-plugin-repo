@@ -1,13 +1,9 @@
 <div class="Show active {{statusCssClass}}" data-id="{{this.id}}">
-    <div class="info well" style="background-image: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%), url({{this.fanart_image}});">
-        <img src="{{this.poster_image}}" class="poster box-shadow"/><img src="{{this.banner_image}}" class="banner"/>
-        <h3>{{this.title}}</h3>
-        <h4>{{this.year}}</h4>
-        <ul class="infos black-outline">
-            <li><label>Runtime</label><span>{{this.runtime}}</span></li>
-            <li><label>Classification</label><span>{{this.classification}}</span></li>
-            <li><label>Description</label><span>{{this.description}}</span></li>
-        </ul>
+    <div class="info">
+        <img src="{{this.poster_image}}" class="poster box-shadow"/>
+        
+        <h2>{{this.title}}</h2>
+        <h2>{{this.year}}</h2>
         <!--{{this.overview}}-->
         <div class="buttons">
             <div>

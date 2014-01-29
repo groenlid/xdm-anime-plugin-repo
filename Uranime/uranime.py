@@ -3,11 +3,15 @@ import requests
 from dateutil import parser
 from json import dumps
 
+connection_names = {1: "anidb", # aniDB
+                    2: "mal", # myanimelist
+                    3: "tvdb", # TheTVDB.com
+                    }
+
 class Uranime(Provider):
-    version = "0.3"
+    version = "0.4"
     identifier = "de.uranime.uranime"
     _tag = 'uranime'
-    _additional_tags = ['anime']
     single = True
     types = ['de.uranime.anime']
     _config = {'enabled': True}
@@ -79,12 +83,18 @@ class Uranime(Provider):
         showElement.setField('description', item['desc'], self.tag)
         showElement.setField('runtime', item['runtime'], self.tag)
         showElement.setField('classification', item['classification'], self.tag)
-        
+
         if 'synonyms' in item:
-            synonyms = []
-            for synonym in item['synonyms']:
-                synonyms.append(synonym['title'])
-            showElement.setField('synonyms', dumps(synonyms), self.tag)
+            showElement.setField(
+                'synonyms',
+                dumps([s["title"] for s in item['synonyms'] if s["title"].strip()]),
+                self.tag
+            )
+
+        if "connections" in item:
+            for connection in item["connections"]:
+                if connection["site_id"] in connection_names:
+                    showElement.setField('id', connection["source_id"], connection_names[connection["site_id"]])
 
         showElement.saveTemp()
         if 'episodes' in item:
@@ -102,7 +112,6 @@ class Uranime(Provider):
                 if _episode['image']:
                         episode.setField('screencap_image', self._episode_image_url + '/' + str(_episode['anime_id']) + '/' + _episode['image'], self.tag)
 
-                if _episode['special']:
-                        episode.setField('special', True, self.tag)
+                episode.setField('special', _episode['special'], self.tag)
                 episode.saveTemp()
 
