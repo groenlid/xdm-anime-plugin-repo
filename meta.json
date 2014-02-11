@@ -21,7 +21,7 @@
 	"de.uranime.uranime": [
             {
                 "major_version": 0, 
-                "minor_version": 3, 
+                "minor_version": 5, 
                 "name": "Uranime", 
                 "type": "Provider", 
                 "format": "zip", 

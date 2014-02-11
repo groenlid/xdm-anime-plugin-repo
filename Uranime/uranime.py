@@ -9,7 +9,7 @@ connection_names = {1: "anidb", # aniDB
                     }
 
 class Uranime(Provider):
-    version = "0.4"
+    version = "0.5"
     identifier = "de.uranime.uranime"
     _tag = 'uranime'
     single = True
