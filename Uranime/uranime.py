@@ -19,8 +19,8 @@ class Uranime(Provider):
 
     _resize_url = "http://urani.me/api/imageresize/"
     _episode_image_url = "http://urani.me/attachments/episodes"
-    _search_url = "http://groenlid.no-ip.org/api/anime"
-    _details_url = "http://groenlid.no-ip.org/api/animedetails"
+    _search_url = "http://urani.me:3000/api/anime"
+    _details_url = "http://urani.me:3000/api/animedetails"
 
     def searchForElement(self, term=''):
         self.progress.reset()
